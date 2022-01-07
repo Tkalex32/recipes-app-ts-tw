@@ -53,41 +53,41 @@ const App: React.FC = () => {
   }, [recipeSearch]);
 
   return (
-    <div className="bg-gray-300">
-      <div className="py-12 px-24">
-        <h1 className="text-xl font-semibold">Recipe Search</h1>
-        <form className="searchForm" onSubmit={(event) => search(event)}>
-          <input
-            className="border-2 border-sky-600 p-2 text-lg rounded-md"
-            id="searchText"
-            type="text"
-            placeholder="search..."
-          />
-          <button className="bg-sky-600 text-white p-2 m-2 text-lg rounded-md">
-            Search
-          </button>
-        </form>
-        {isLoading ? (
-          <div className="flex flex-col justify-center items-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-sky-600 mt-24"></div>
-            <div className="text-sky-600 text-3xl mt-4 animate-pulse">
-              LOADING...
-            </div>
+    <div className="px-2 py-4 bg-slate-200 w-screen max-w-full min-h-screen bg-fixed">
+      <h1 className="text-4xl my-3 font-semibold text-center">Recipe Search</h1>
+      <form className="text-center" onSubmit={(event) => search(event)}>
+        <input
+          className="border-2 border-sky-600 p-2 text-lg rounded-md"
+          id="searchText"
+          type="text"
+          placeholder="search..."
+        />
+        <button className="bg-sky-600 text-white p-2 m-2 text-lg rounded-md">
+          Search
+        </button>
+      </form>
+      {isLoading ? (
+        <div className="flex flex-col justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-sky-600 mt-24"></div>
+          <div className="text-sky-600 text-3xl mt-4 animate-pulse">
+            LOADING...
           </div>
-        ) : error ? (
-          <p className="text-sky-600 text-3xl">Something went wrong...</p>
-        ) : (
-          <div>
-            {recipeSearch && <p>Results for {recipeSearch}...</p>}
-            <div className="flex flex-wrap my-2 mx-0">
-              {recipesFound &&
-                recipesFound.map((recipe, idx) => (
-                  <RecipeComponent key={idx} recipe={recipe} />
-                ))}
-            </div>
+        </div>
+      ) : error ? (
+        <p className="text-sky-600 text-3xl">Something went wrong...</p>
+      ) : (
+        <div>
+          {recipeSearch && (
+            <p className="text-center">Results for {recipeSearch}...</p>
+          )}
+          <div className="flex flex-wrap my-2 mx-0 gap-2 justify-evenly">
+            {recipesFound &&
+              recipesFound.map((recipe, idx) => (
+                <RecipeComponent key={idx} recipe={recipe} />
+              ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
