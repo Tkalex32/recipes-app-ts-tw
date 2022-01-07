@@ -4,17 +4,9 @@ import RecipeComponent from "./components/RecipeComponent";
 import { IRecipeData } from "./IRecipe";
 
 const App: React.FC = () => {
-  const getProducts = async (query: string): Promise<IRecipeData[]> =>
-    await (
-      await fetch(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${
-          import.meta.env.VITE_APP_ID
-        }&app_key=${import.meta.env.VITE_APP_KEY}`
-      )
-    ).json();
   const [recipesFound, setRecipesFound] = useState<IRecipeData[]>([]);
   const [recipeSearch, setRecipeSearch] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { data, error } = useQuery<IRecipeData[]>(
     ["products", recipeSearch],
     () => searchForRecipes(recipeSearch),
@@ -32,7 +24,7 @@ const App: React.FC = () => {
     return (await response.json()).hits;
   };
 
-  const search = (event: FormEvent<HTMLFormElement>) => {
+  const search = (event: FormEvent<HTMLFormElement>): void => {
     setIsLoading(true);
     event.preventDefault();
     const form = event.target as HTMLFormElement;
